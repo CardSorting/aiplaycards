@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:image="http://purl.org/rss/1.0/modules/image/">
+  <channel>
+    <title>PlayMore TCG - Latest Cards</title>
+    <link>https://playmoretcg.com/gallery</link>
+    <description>Latest custom Pokemon cards created by the PlayMore TCG community</description>
+    <language>en-US</language>
+    <lastBuildDate>Tue, 18 Nov 2025 10:17:36 GMT</lastBuildDate>
+    <atom:link href="https://playmoretcg.com/rss-latest-cards.xml" rel="self" type="application/rss+xml" />
+    <image>
+      <url>https://playmoretcg.com/assets/images/logo.png</url>
+      <title>PlayMore TCG - Latest Cards</title>
+      <link>https://playmoretcg.com/gallery</link>
+    </image>
+    <item>
+      <title>Amazing Fire Pokemon Card</title>
+      <link>https://playmoretcg.com/gallery/1</link>
+      <guid>https://playmoretcg.com/gallery/1</guid>
+      <pubDate>Tue, 18 Nov 2025 10:17:36 GMT</pubDate>
+      <description><![CDATA[Check out this amazing custom Fire-type Pokemon card created by the community!]]></description>
+      <image:image>
+        <image:url>https://playmoretcg.com/assets/images/card1.png</image:url>
+        <image:title>Amazing Fire Pokemon Card</image:title>
+      </image:image>
+      <dc:creator>PokemonCreator123</dc:creator>
+      <category>Fire Pokemon</category>
+    </item>
+    <item>
+      <title>Rare Water Pokemon Card</title>
+      <link>https://playmoretcg.com/gallery/2</link>
+      <guid>https://playmoretcg.com/gallery/2</guid>
+      <pubDate>Mon, 17 Nov 2025 10:17:36 GMT</pubDate>
+      <description><![CDATA[A rare Water-type Pokemon card with stunning artwork and powerful abilities.]]></description>
+      <image:image>
+        <image:url>https://playmoretcg.com/assets/images/card2.png</image:url>
+        <image:title>Rare Water Pokemon Card</image:title>
+      </image:image>
+      <dc:creator>WaterMaster</dc:creator>
+      <category>Water Pokemon</category>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,88 @@
+{
+  "short_name": "PlayMore TCG",
+  "name": "PlayMore TCG - AI Pokemon Card Creator",
+  "description": "Create your own custom Pokémon cards in the modern Sword and Shield format, including Pokémon-V, V-Max and Full Art Trainers!",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#007AFF",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["games", "entertainment", "education"],
+  "screenshots": [
+    {
+      "src": "/assets/images/screenshot1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Homepage of PlayMore TCG"
+    },
+    {
+      "src": "/assets/images/screenshot2.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Card Creator Interface"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Create Card",
+      "short_name": "Create",
+      "description": "Start creating a new Pokemon card",
+      "url": "/creator",
+      "icons": [
+        {
+          "src": "/assets/images/create-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Open Packs",
+      "short_name": "Packs",
+      "description": "Open AI-generated booster packs",
+      "url": "/booster",
+      "icons": [
+        {
+          "src": "/assets/images/pack-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Browse Gallery",
+      "short_name": "Gallery",
+      "description": "Browse community-created cards",
+      "url": "/gallery",
+      "icons": [
+        {
+          "src": "/assets/images/gallery-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

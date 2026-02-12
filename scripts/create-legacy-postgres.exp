@@ -1,0 +1,17 @@
+#!/usr/bin/expect -f
+
+set timeout 300
+spawn flyctl postgres create --name pokemonfork-db-legacy --region ord --vm-size shared-cpu-1x --volume-size 10 --flex
+
+expect {
+    "Unmanaged Fly Postgres is not supported" {
+        send "y\r"
+        exp_continue
+    }
+    "password" {
+        send "\r"
+        exp_continue
+    }
+    eof
+}
+

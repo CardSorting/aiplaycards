@@ -1,0 +1,29 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /embed/
+Disallow: /test-auth
+Disallow: /_next/
+Disallow: /static/
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /embed/
+Disallow: /test-auth
+
+# Host
+Host: https://playmoretcg.com
+
+# Sitemaps
+
+# Sitemaps
+Sitemap: https://playmoretcg.com/sitemap.xml
+Sitemap: https://playmoretcg.com/sitemap-main.xml
+Sitemap: https://playmoretcg.com/sitemap-gallery.xml
+Sitemap: https://playmoretcg.com/sitemap-marketplace.xml
+Sitemap: https://playmoretcg.com/sitemap-users.xml

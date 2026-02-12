@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "src/features/mtgCardEditor/components",
+    "utils": "src/features/mtgCardEditor/lib/utils",
+    "ui": "src/features/mtgCardEditor/components/ui",
+    "lib": "src/features/mtgCardEditor/lib",
+    "hooks": "src/features/mtgCardEditor/hooks"
+  }
+}

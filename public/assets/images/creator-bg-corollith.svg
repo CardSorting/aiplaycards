@@ -1,0 +1,16 @@
+<svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="corollithGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2ecc71;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16a085;stop-opacity:1" />
+    </linearGradient>
+    <pattern id="crystalPattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <polygon points="20,0 25,15 20,30 15,15" fill="rgba(255,255,255,0.1)"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="200" fill="url(#corollithGradient)"/>
+  <rect width="400" height="200" fill="url(#crystalPattern)"/>
+  <text x="200" y="100" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-family="Arial, sans-serif" font-size="24" font-weight="bold">COROLLITH</text>
+  <text x="200" y="130" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Arial, sans-serif" font-size="12">NATURAL CRYSTALS</text>
+</svg>

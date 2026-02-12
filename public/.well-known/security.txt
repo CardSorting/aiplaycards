@@ -1,0 +1,27 @@
+# Security Policy for PlayMore TCG
+# This file follows RFC 9116 - Well-Known URIs for Security.txt
+
+# Contact Information
+Contact: mailto:security@playmoretcg.com
+Contact: https://playmoretcg.com/security
+
+# Encryption
+Encryption: https://playmoretcg.com/pgp-key.txt
+
+# Acknowledgments
+Acknowledgments: https://playmoretcg.com/security/hall-of-fame
+
+# Policy
+Policy: https://playmoretcg.com/security/policy
+
+# Hiring
+Hiring: https://playmoretcg.com/careers
+
+# Expires
+Expires: 2025-12-31T23:59:59.000Z
+
+# Preferred Languages
+Preferred-Languages: en, es, fr
+
+# Canary
+Canary: https://playmoretcg.com/security/canary.txt

@@ -1,0 +1,40 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# next.js
+/.next
+/out
+.env
+
+# database
+/drizzle
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+/log
+**/*.tmp
+./scripts/output/
+./scripts/organize/
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local.backup
+
+# MCP configuration (may contain sensitive data)
+.cursor/mcp.json
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vercel

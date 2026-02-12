@@ -1,0 +1,33 @@
+/* TEAM */
+    Developer: PlayMore TCG Team
+    Contact: hello@playmoretcg.com
+    From: Worldwide
+
+/* SITE */
+    Last update: 2024/12/19
+    Language: English
+    Doctype: HTML5
+    IDE: Visual Studio Code
+    Standards: HTML5, CSS3, JavaScript ES6+
+    Components: React, Next.js, Material-UI
+    Software: Node.js, TypeScript, Drizzle ORM
+    Database: PostgreSQL (Neon)
+    Hosting: Vercel
+    CDN: Vercel Edge Network
+    Analytics: Google Analytics, GoatCounter
+    Payment: PayPal
+    AI: Google Gemini, Replicate
+    Image Processing: Sharp, AWS S3
+    Queue System: PG Boss
+    Authentication: NextAuth.js
+    Deployment: Vercel, Fly.io
+    Monitoring: Vercel Analytics
+    Security: HTTPS, CSP, HSTS
+    Performance: Next.js App Router, Image Optimization
+    Accessibility: WCAG 2.1 AA
+    SEO: Structured Data, Open Graph, Twitter Cards
+    PWA: Service Worker, Manifest, Offline Support
+    Testing: TypeScript, ESLint, Prettier
+    Version Control: Git, GitHub
+    License: Proprietary
+    Made with: ❤️ for the Pokemon community
