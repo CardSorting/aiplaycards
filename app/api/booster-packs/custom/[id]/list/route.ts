@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '../../../../../../auth';
 import { db } from '@db';
 import { customBoosterPackListings, customBoosterPacks } from '@db/schema';
 import { and, eq } from 'drizzle-orm';
@@ -9,14 +8,6 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const session = await auth();
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        { error: 'Authentication required' },
-        { status: 401 },
-      );
-    }
-
     const { id } = await params;
     const packId = parseInt(id);
     if (isNaN(packId)) {
@@ -24,7 +15,7 @@ export async function POST(
     }
 
     const body = await request.json();
-    const { priceCredits, priceUsd, packsAvailable = 1 } = body;
+    const { priceCredits, priceUsd, packsAvailable = 1, sellerUserId } = body;
 
     // Validation
     if (!priceCredits || priceCredits < 1) {
@@ -50,7 +41,14 @@ export async function POST(
       );
     }
 
-    // Verify the pack belongs to the user
+    if (!sellerUserId) {
+      return NextResponse.json(
+        { error: 'Seller user ID is required' },
+        { status: 400 },
+      );
+    }
+
+    // Verify the pack exists
     const [pack] = await db
       .select({
         id: customBoosterPacks.id,
@@ -59,17 +57,12 @@ export async function POST(
         isActive: customBoosterPacks.isActive,
       })
       .from(customBoosterPacks)
-      .where(
-        and(
-          eq(customBoosterPacks.id, packId),
-          eq(customBoosterPacks.creatorUserId, session.user.id),
-        ),
-      );
+      .where(eq(customBoosterPacks.id, packId));
 
     if (!pack) {
       return NextResponse.json(
         {
-          error: 'Pack not found or you do not have permission to list it',
+          error: 'Pack not found',
         },
         { status: 404 },
       );
@@ -91,7 +84,7 @@ export async function POST(
       .where(
         and(
           eq(customBoosterPackListings.packId, packId),
-          eq(customBoosterPackListings.sellerUserId, session.user.id),
+          eq(customBoosterPackListings.sellerUserId, sellerUserId),
           eq(customBoosterPackListings.status, 'active'),
         ),
       );
@@ -110,7 +103,7 @@ export async function POST(
       .insert(customBoosterPackListings)
       .values({
         packId: pack.id,
-        sellerUserId: session.user.id,
+        sellerUserId,
         priceCredits,
         priceUsd: parseFloat(priceUsd).toFixed(2),
         packsAvailable,

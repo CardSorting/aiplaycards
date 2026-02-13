@@ -1,25 +1,79 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["dom", "dom.iterable", "es2020", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2020",
+      "esnext"
+    ],
     "paths": {
-      "@cardEditor": ["src/features/cardEditor"],
-      "@cardEditor/*": ["src/features/cardEditor/*"],
-      "@features/*": ["src/features/*"],
-      "@components/*": ["src/components/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@utils/*": ["src/utils/*"],
-      "@css": ["src/css"],
-      "@routes": ["src/routes"],
-      "@interfaces/*": ["src/interfaces/*"],
-      "@services/*": ["src/services/*"],
-      "@db": ["src/db"],
-      "@db/*": ["src/db/*"],
-
-      "@layout": ["src/layout"],
-      "@lib": ["src/lib"],
-      "@lib/*": ["src/lib/*"],
-      "@assets/*": ["public/assets/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@cardEditor": [
+        "src/features/cardEditor"
+      ],
+      "@cardEditor/*": [
+        "src/features/cardEditor/*"
+      ],
+      "@features": [
+        "src/features"
+      ],
+      "@features/*": [
+        "src/features/*"
+      ],
+      "@components": [
+        "src/components"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@hooks": [
+        "src/hooks"
+      ],
+      "@hooks/*": [
+        "src/hooks/*"
+      ],
+      "@utils": [
+        "src/utils"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@css": [
+        "src/css/index.ts"
+      ],
+      "@routes": [
+        "src/routes.ts"
+      ],
+      "@interfaces/*": [
+        "src/interfaces/*"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@db": [
+        "src/db"
+      ],
+      "@db/*": [
+        "src/db/*"
+      ],
+      "@layout": [
+        "src/layout"
+      ],
+      "@layout/*": [
+        "src/layout/*"
+      ],
+      "@lib": [
+        "src/lib"
+      ],
+      "@lib/*": [
+        "src/lib/*"
+      ],
+      "@assets/*": [
+        "public/assets/*"
+      ]
     },
     "allowJs": true,
     "skipLibCheck": true,
@@ -29,7 +83,7 @@
     "module": "esnext",
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "strict": true,
     "target": "es2020",
     "moduleResolution": "bundler",
@@ -38,19 +92,15 @@
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
     "emitDecoratorMetadata": true,
-    "incremental": false,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "incremental": false
   },
   "include": [
-    "next-env-custom.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    ".next/types/**/*.ts"
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "vite.config.ts"
   ],
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

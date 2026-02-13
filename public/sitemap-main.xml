@@ -7,56 +7,56 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://playmoretcg.com</loc>
-    <lastmod>2025-11-18</lastmod>
+    <lastmod>2026-02-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     
   </url>
   <url>
     <loc>https://playmoretcg.com/booster</loc>
-    <lastmod>2025-11-18</lastmod>
+    <lastmod>2026-02-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     
   </url>
   <url>
     <loc>https://playmoretcg.com/creator</loc>
-    <lastmod>2025-11-18</lastmod>
+    <lastmod>2026-02-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     
   </url>
   <url>
     <loc>https://playmoretcg.com/gallery</loc>
-    <lastmod>2025-11-18</lastmod>
+    <lastmod>2026-02-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     
   </url>
   <url>
     <loc>https://playmoretcg.com/marketplace</loc>
-    <lastmod>2025-11-18</lastmod>
+    <lastmod>2026-02-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     
   </url>
   <url>
     <loc>https://playmoretcg.com/credits</loc>
-    <lastmod>2025-11-18</lastmod>
+    <lastmod>2026-02-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     
   </url>
   <url>
     <loc>https://playmoretcg.com/privacy</loc>
-    <lastmod>2025-11-18</lastmod>
+    <lastmod>2026-02-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
     
   </url>
   <url>
     <loc>https://playmoretcg.com/terms</loc>
-    <lastmod>2025-11-18</lastmod>
+    <lastmod>2026-02-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
     

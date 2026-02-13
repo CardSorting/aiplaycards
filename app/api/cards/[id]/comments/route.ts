@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cardCommentQueries } from '../../../../../src/db/queries';
 import { dbUtils } from '../../../../../src/db/utils';
-import { auth } from '../../../../../auth';
 
 export async function GET(
   request: NextRequest,
@@ -36,13 +35,6 @@ export async function POST(
 ) {
   try {
     dbUtils.validateEnv();
-    const session = await auth();
-    const currentUser = session?.user;
-    if (!currentUser)
-      return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
-        { status: 401 },
-      );
     const { id } = await params;
     const cardId = parseInt(id, 10);
     if (Number.isNaN(cardId))
@@ -52,12 +44,18 @@ export async function POST(
       );
     const body = await request.json().catch(() => ({}));
     const content = (body?.content || '').toString().trim();
+    const userId = body?.userId;
+    if (!userId)
+      return NextResponse.json(
+        { success: false, error: 'User ID required' },
+        { status: 401 },
+      );
     if (!content)
       return NextResponse.json(
         { success: false, error: 'Content required' },
         { status: 400 },
       );
-    const row = await cardCommentQueries.add(cardId, currentUser.id!, content);
+    const row = await cardCommentQueries.add(cardId, userId, content);
     return NextResponse.json({ success: true, data: row });
   } catch (e) {
     console.error('[comments] POST error', e);
@@ -74,21 +72,20 @@ export async function DELETE(
 ) {
   try {
     dbUtils.validateEnv();
-    const session = await auth();
-    const currentUser = session?.user;
-    if (!currentUser)
-      return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
-        { status: 401 },
-      );
     const url = new URL(request.url);
     const commentId = parseInt(url.searchParams.get('commentId') || '', 10);
+    const userId = url.searchParams.get('userId');
+    if (!userId)
+      return NextResponse.json(
+        { success: false, error: 'User ID required' },
+        { status: 401 },
+      );
     if (Number.isNaN(commentId))
       return NextResponse.json(
         { success: false, error: 'Invalid comment id' },
         { status: 400 },
       );
-    const ok = await cardCommentQueries.remove(commentId, currentUser.id!);
+    const ok = await cardCommentQueries.remove(commentId, userId);
     return NextResponse.json({ success: ok });
   } catch (e) {
     console.error('[comments] DELETE error', e);

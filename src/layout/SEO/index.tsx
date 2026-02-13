@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import { Helmet } from 'react-helmet-async';
 import { FC, useMemo } from 'react';
 
 interface SEOProps {
@@ -103,7 +103,7 @@ const SEO: FC<SEOProps> = ({
   }, [noindex, nofollow]);
 
   return (
-    <Head>
+    <Helmet>
       {/* Basic Meta Tags */}
       <title>{finalTitle}</title>
       <meta name="description" content={description} />
@@ -192,27 +192,18 @@ const SEO: FC<SEOProps> = ({
       <link rel="manifest" href="/manifest.json" />
 
       {/* Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(defaultStructuredData),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(organizationStructuredData),
-        }}
-      />
+      <script type="application/ld+json">
+        {JSON.stringify(defaultStructuredData)}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify(organizationStructuredData)}
+      </script>
       {structuredData && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData),
-          }}
-        />
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
       )}
-    </Head>
+    </Helmet>
   );
 };
 

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlayMoreTCG.com</title>
+    <!-- Prevent ethereum property redefinition errors from browser extensions -->
+    <script>
+      (function() {
+        if (typeof window === 'undefined') return;
+        const originalDefineProperty = Object.defineProperty;
+        Object.defineProperty = function(obj, prop, descriptor) {
+          if (obj === window && prop === 'ethereum') {
+            if (window.ethereum) return window.ethereum;
+            try {
+              return originalDefineProperty.call(this, obj, prop, {
+                ...descriptor,
+                configurable: false
+              });
+            } catch (e) {
+              return window.ethereum || undefined;
+            }
+          }
+          return originalDefineProperty.call(this, obj, prop, descriptor);
+        };
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cardLikeQueries, cardQueries } from '../../../../../src/db/queries';
 import { dbUtils } from '../../../../../src/db/utils';
-import { auth } from '../../../../../auth';
 import { notificationService } from '../../../../../src/services/notification-service';
 
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
@@ -18,10 +17,10 @@ export async function GET(
         { status: 400 },
       );
     const count = await cardLikeQueries.count(cardId);
-    const session = await auth();
-    const currentUser = session?.user;
-    const isLiked = currentUser
-      ? await cardLikeQueries.isLiked(cardId, currentUser.id!)
+    const url = new URL(request.url);
+    const userId = url.searchParams.get('userId');
+    const isLiked = userId
+      ? await cardLikeQueries.isLiked(cardId, userId)
       : false;
     return NextResponse.json({ success: true, data: { count, isLiked } });
   } catch (e) {
@@ -39,13 +38,6 @@ export async function POST(
 ) {
   try {
     dbUtils.validateEnv();
-    const session = await auth();
-    const currentUser = session?.user;
-    if (!currentUser)
-      return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
-        { status: 401 },
-      );
     const { id } = await params;
     const cardId = parseInt(id, 10);
     if (Number.isNaN(cardId))
@@ -55,20 +47,26 @@ export async function POST(
       );
     const body = await request.json().catch(() => ({}));
     const action = (body?.action || '').toString();
+    const userId = body?.userId;
+    if (!userId)
+      return NextResponse.json(
+        { success: false, error: 'User ID required' },
+        { status: 401 },
+      );
     if (action === 'like') {
-      const liked = await cardLikeQueries.like(cardId, currentUser.id!);
+      const liked = await cardLikeQueries.like(cardId, userId);
 
       // Create notification for the card owner
       if (liked) {
         try {
           const card = await cardQueries.getById(cardId);
-          if (card && card.userId && card.userId !== currentUser.id!) {
+          if (card && card.userId && card.userId !== userId) {
             await notificationService.notifyCardLiked(
               card.userId,
-              currentUser.id!,
+              userId,
               cardId,
               card.name,
-              currentUser.name || currentUser.email || undefined,
+              body?.userName || undefined,
             );
           }
         } catch (error) {
@@ -76,7 +74,7 @@ export async function POST(
         }
       }
     } else if (action === 'unlike') {
-      await cardLikeQueries.unlike(cardId, currentUser.id!);
+      await cardLikeQueries.unlike(cardId, userId);
     } else {
       return NextResponse.json(
         { success: false, error: 'Invalid action' },
@@ -84,7 +82,7 @@ export async function POST(
       );
     }
     const count = await cardLikeQueries.count(cardId);
-    const isLiked = await cardLikeQueries.isLiked(cardId, currentUser.id!);
+    const isLiked = await cardLikeQueries.isLiked(cardId, userId);
     return NextResponse.json({ success: true, data: { count, isLiked } });
   } catch (e) {
     console.error('[likes] POST error', e);

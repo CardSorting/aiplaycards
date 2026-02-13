@@ -13,10 +13,9 @@ import {
 } from 'drizzle-orm';
 import { db } from '../../../../../src/db';
 import { cards } from '../../../../../src/db/schema/cards';
-import { authUsers } from '../../../../../src/db/schema/auth';
+import { users } from '../../../../../src/db/schema/users';
 import { cardLikes } from '../../../../../src/db/schema/card-social';
 import { follows } from '../../../../../src/db/schema/follows';
-import { auth } from '../../../../../auth';
 
 // Enhanced feed algorithm with modern methodologies
 interface FeedCard {
@@ -140,10 +139,7 @@ export async function GET(request: NextRequest) {
     const cursor = searchParams.get('cursor');
     const sortBy = searchParams.get('sort') || 'ranked';
     const userId = searchParams.get('userId'); // For personalization
-
-    // Get current user for personalization
-    const session = await auth();
-    const currentUserId = session?.user?.id || userId;
+    const currentUserId = userId;
 
     // Enhanced base query with performance optimizations
     const baseQuery = db
@@ -175,11 +171,11 @@ export async function GET(request: NextRequest) {
         createdAt: cards.createdAt,
         isPublic: cards.isPublic,
         userId: cards.userId,
-        username: authUsers.name,
-        userAvatar: authUsers.image,
+        username: users.displayName,
+        userAvatar: users.avatarUrl,
       })
       .from(cards)
-      .leftJoin(authUsers, eq(cards.userId, authUsers.id))
+      .leftJoin(users, eq(cards.userId, users.userId))
       .where(
         and(
           eq(cards.isPublic, true),
@@ -227,11 +223,11 @@ export async function GET(request: NextRequest) {
             createdAt: cards.createdAt,
             isPublic: cards.isPublic,
             userId: cards.userId,
-            username: authUsers.name,
-            userAvatar: authUsers.image,
+            username: users.displayName,
+            userAvatar: users.avatarUrl,
           })
           .from(cards)
-          .leftJoin(authUsers, eq(cards.userId, authUsers.id))
+          .leftJoin(users, eq(cards.userId, users.userId))
           .where(
             and(
               eq(cards.isPublic, true),
@@ -289,11 +285,11 @@ export async function GET(request: NextRequest) {
                 createdAt: cards.createdAt,
                 isPublic: cards.isPublic,
                 userId: cards.userId,
-                username: authUsers.name,
-                userAvatar: authUsers.image,
+                username: users.displayName,
+                userAvatar: users.avatarUrl,
               })
               .from(cards)
-              .leftJoin(authUsers, eq(cards.userId, authUsers.id))
+              .leftJoin(users, eq(cards.userId, users.userId))
               .where(
                 and(
                   eq(cards.isPublic, true),
@@ -358,67 +354,67 @@ export async function GET(request: NextRequest) {
         // Get likes count for these cards
         cardIds.length > 0
           ? db
-              .select({
-                cardId: cardLikes.cardId,
-                count: sql<number>`COALESCE(${count(cardLikes.id)}, 0)`,
-              })
-              .from(cardLikes)
-              .where(inArray(cardLikes.cardId, cardIds))
-              .groupBy(cardLikes.cardId)
+            .select({
+              cardId: cardLikes.cardId,
+              count: sql<number>`COALESCE(${count(cardLikes.id)}, 0)`,
+            })
+            .from(cardLikes)
+            .where(inArray(cardLikes.cardId, cardIds))
+            .groupBy(cardLikes.cardId)
           : [],
 
         // Get user's likes if logged in
         currentUserId && cardIds.length > 0
           ? db
-              .select({ cardId: cardLikes.cardId })
-              .from(cardLikes)
-              .where(
-                and(
-                  eq(cardLikes.userId, currentUserId),
-                  inArray(cardLikes.cardId, cardIds),
-                ),
-              )
+            .select({ cardId: cardLikes.cardId })
+            .from(cardLikes)
+            .where(
+              and(
+                eq(cardLikes.userId, currentUserId),
+                inArray(cardLikes.cardId, cardIds),
+              ),
+            )
           : [],
 
         // Get user's follows if logged in
         currentUserId && result.length > 0
           ? db
-              .select({ followingUserId: follows.followingUserId })
-              .from(follows)
-              .where(
-                and(
-                  eq(follows.followerUserId, currentUserId),
-                  inArray(
-                    follows.followingUserId,
-                    result.map((card: any) => card.userId).filter(Boolean),
-                  ),
+            .select({ followingUserId: follows.followingUserId })
+            .from(follows)
+            .where(
+              and(
+                eq(follows.followerUserId, currentUserId),
+                inArray(
+                  follows.followingUserId,
+                  result.map((card: any) => card.userId).filter(Boolean),
                 ),
-              )
+              ),
+            )
           : [],
 
         // Get creator statistics for authority scoring
         result.length > 0
           ? db
-              .select({
-                userId: cards.userId,
-                totalLikes: sql<number>`COALESCE(${sum(cardLikes.id)}, 0)`,
-                totalCards: count(cards.id),
-                avgLikes: sql<number>`COALESCE(${avg(
-                  sql<number>`COALESCE(${cardLikes.id}, 0)`,
-                )}, 0)`,
-              })
-              .from(cards)
-              .leftJoin(cardLikes, eq(cards.id, cardLikes.cardId))
-              .where(
-                and(
-                  inArray(
-                    cards.userId,
-                    result.map((card: any) => card.userId).filter(Boolean),
-                  ),
-                  eq(cards.isPublic, true),
+            .select({
+              userId: cards.userId,
+              totalLikes: sql<number>`COALESCE(${sum(cardLikes.id)}, 0)`,
+              totalCards: count(cards.id),
+              avgLikes: sql<number>`COALESCE(${avg(
+                sql<number>`COALESCE(${cardLikes.id}, 0)`,
+              )}, 0)`,
+            })
+            .from(cards)
+            .leftJoin(cardLikes, eq(cards.id, cardLikes.cardId))
+            .where(
+              and(
+                inArray(
+                  cards.userId,
+                  result.map((card: any) => card.userId).filter(Boolean),
                 ),
-              )
-              .groupBy(cards.userId)
+                eq(cards.isPublic, true),
+              ),
+            )
+            .groupBy(cards.userId)
           : [],
       ],
     );
@@ -469,11 +465,11 @@ export async function GET(request: NextRequest) {
       const creatorStat = creatorStatsMap.get(card.userId);
       const creatorAuthority = creatorStat
         ? calculateCreatorAuthority(
-            Number(creatorStat.totalLikes) || 0,
-            Number(creatorStat.totalCards) || 0,
-            Number(creatorStat.avgLikes) || 0,
-            engagementVelocity,
-          )
+          Number(creatorStat.totalLikes) || 0,
+          Number(creatorStat.totalCards) || 0,
+          Number(creatorStat.avgLikes) || 0,
+          engagementVelocity,
+        )
         : 0;
 
       // Content diversity score
@@ -502,10 +498,10 @@ export async function GET(request: NextRequest) {
           card.rarity === 'Legendary'
             ? 20
             : card.rarity === 'Rare'
-            ? 15
-            : card.rarity === 'Uncommon'
-            ? 10
-            : 0;
+              ? 15
+              : card.rarity === 'Uncommon'
+                ? 10
+                : 0;
 
         // Social signals
         const followBonus = isFollowedUser ? 60 : 0;

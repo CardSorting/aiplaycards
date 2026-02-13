@@ -1,4 +1,4 @@
-'use client';
+import { useSession } from '@hooks/useSession';
 
 import { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, Box, Typography } from '@mui/material';
@@ -100,40 +100,40 @@ const SimpleFeed: FC<SimpleFeedProps> = ({ limit = 10 }) => {
         // Normalize card data
         const normalizedCards = Array.isArray(data.data)
           ? data.data.map((card: Record<string, unknown>) => {
-              const normalized = normalizeCardData(card);
+            const normalized = normalizeCardData(card);
 
-              return {
-                ...normalized,
-                // Ensure all important fields are preserved
-                cardNumber: card.cardNumber,
-                totalInSet: card.totalInSet,
-                weakness: card.weakness,
-                resistance: card.resistance,
-                retreatCost: card.retreatCost,
-                userId: card.userId,
-                // Animation and user fields
-                animationUrl: card.animationUrl,
-                animationPrompt: card.animationPrompt,
-                animatedAt: card.animatedAt,
-                createdAt: card.createdAt,
-                username:
-                  (card.user as { name?: string })?.name ||
-                  (card.username as string) ||
-                  'Anonymous',
-                userAvatar:
-                  (card.user as { image?: string })?.image ||
-                  (card.userAvatar as string),
-                isPublic: card.isPublic,
-                // Social fields
-                likesCount: card.likesCount || 0,
-                isLiked: card.isLiked || false,
-                isFollowedUser: card.isFollowedUser || false,
-                rankingScore: card.rankingScore || 0,
-                engagementVelocity: card.engagementVelocity || 0,
-                contentFreshness: card.contentFreshness || 0,
-                creatorAuthority: card.creatorAuthority || 0,
-              };
-            })
+            return {
+              ...normalized,
+              // Ensure all important fields are preserved
+              cardNumber: card.cardNumber,
+              totalInSet: card.totalInSet,
+              weakness: card.weakness,
+              resistance: card.resistance,
+              retreatCost: card.retreatCost,
+              userId: card.userId,
+              // Animation and user fields
+              animationUrl: card.animationUrl,
+              animationPrompt: card.animationPrompt,
+              animatedAt: card.animatedAt,
+              createdAt: card.createdAt,
+              username:
+                (card.user as { name?: string })?.name ||
+                (card.username as string) ||
+                'Anonymous',
+              userAvatar:
+                (card.user as { image?: string })?.image ||
+                (card.userAvatar as string),
+              isPublic: card.isPublic,
+              // Social fields
+              likesCount: card.likesCount || 0,
+              isLiked: card.isLiked || false,
+              isFollowedUser: card.isFollowedUser || false,
+              rankingScore: card.rankingScore || 0,
+              engagementVelocity: card.engagementVelocity || 0,
+              contentFreshness: card.contentFreshness || 0,
+              creatorAuthority: card.creatorAuthority || 0,
+            };
+          })
           : [];
 
         if (append) {

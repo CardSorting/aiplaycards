@@ -2,19 +2,12 @@ import { NextResponse } from 'next/server';
 import { db } from '../../../../src/db';
 import { boosterJobs } from '../../../../src/db/schema/booster-jobs';
 import { eq } from 'drizzle-orm';
-import { auth } from '../../../../auth';
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const session = await auth();
-    const currentUser = session?.user;
-    if (!currentUser) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const { id } = await params;
     const jobId = parseInt(id, 10);
     if (isNaN(jobId)) {
@@ -34,9 +27,9 @@ export async function GET(
       .where(eq(boosterJobs.id, jobId))
       .limit(1);
 
-    if (job.length === 0 || job[0].userId !== currentUser.id!) {
+    if (job.length === 0) {
       return NextResponse.json(
-        { error: 'Job not found or not owned by user' },
+        { error: 'Job not found' },
         { status: 404 },
       );
     }

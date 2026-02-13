@@ -3,19 +3,18 @@ import { and, eq } from 'drizzle-orm';
 import { db } from '../../../../../src/db';
 import { cardLikes } from '../../../../../src/db/schema/card-social';
 import { cards } from '../../../../../src/db/schema/cards';
-import { auth } from '../../../../../auth';
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const session = await auth();
-    const userId = session?.user?.id;
+    const body = await request.json().catch(() => ({}));
+    const userId = body?.userId;
 
     if (!userId) {
       return NextResponse.json(
-        { error: 'Authentication required' },
+        { error: 'User ID required' },
         { status: 401 },
       );
     }
@@ -86,12 +85,12 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const session = await auth();
-    const userId = session?.user?.id;
+    const body = await request.json().catch(() => ({}));
+    const userId = body?.userId;
 
     if (!userId) {
       return NextResponse.json(
-        { error: 'Authentication required' },
+        { error: 'User ID required' },
         { status: 401 },
       );
     }

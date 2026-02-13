@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import {
   Box,
   Breadcrumbs,
@@ -198,24 +199,24 @@ export default function SpecialMarketplacePage() {
 
         const normalizedListings: SpecialListing[] = Array.isArray(data?.data)
           ? data.data.map((listing: any) => ({
-              id: listing.id,
-              cardId: listing.cardId,
-              priceCredits: listing.priceCredits,
-              sellerUserId: listing.sellerUserId,
-              sellerUsername: listing.sellerUsername,
-              createdAt: listing.createdAt,
-              name: listing.name || listing.cardName,
-              cardName: listing.cardName,
-              imageUrl: listing.imageUrl,
-              rarity: listing.rarity,
-              categoryId: listing.categoryId,
-              categoryName: listing.categoryName,
-              categoryColor: listing.categoryColor,
-              animationUrl: listing.animationUrl,
-              type: listing.type || listing.rarity,
-              supertype: listing.supertype || 'Special',
-              subtype: listing.subtype || listing.categoryName,
-            }))
+            id: listing.id,
+            cardId: listing.cardId,
+            priceCredits: listing.priceCredits,
+            sellerUserId: listing.sellerUserId,
+            sellerUsername: listing.sellerUsername,
+            createdAt: listing.createdAt,
+            name: listing.name || listing.cardName,
+            cardName: listing.cardName,
+            imageUrl: listing.imageUrl,
+            rarity: listing.rarity,
+            categoryId: listing.categoryId,
+            categoryName: listing.categoryName,
+            categoryColor: listing.categoryColor,
+            animationUrl: listing.animationUrl,
+            type: listing.type || listing.rarity,
+            supertype: listing.supertype || 'Special',
+            subtype: listing.subtype || listing.categoryName,
+          }))
           : [];
 
         setTotal(Number(data?.total || 0));
@@ -603,8 +604,8 @@ export default function SpecialMarketplacePage() {
                         viewMode === 'grid' && !isMobile
                           ? 'translateY(-8px)'
                           : isMobile
-                          ? 'translateY(-4px)'
-                          : 'none',
+                            ? 'translateY(-4px)'
+                            : 'none',
                       boxShadow: theme => theme.shadows[12],
                       '& .cardImage': {
                         transform: isMobile ? 'scale(1.02)' : 'scale(1.05)',

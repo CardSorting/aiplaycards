@@ -24,17 +24,15 @@ import {
 } from '@mui/icons-material';
 import { useMTGCard } from '../../contexts/MTGCardContext';
 import { MTGLayout } from '../../types';
-import { useMTGCardExport } from '../hooks/useMTGCardExport';
 
 export function MTGCardToolbar() {
   const { state, resetCard, updateCard } = useMTGCard();
   const { card, validation } = state;
-  const { saveToDatabase } = useMTGCardExport();
   const [saving, setSaving] = useState(false);
   const [notification, setNotification] = useState<{
     open: boolean;
     message: string;
-    severity: 'success' | 'error';
+    severity: 'success' | 'error' | 'info';
   }>({ open: false, message: '', severity: 'success' });
 
   const handleSave = async () => {
@@ -42,21 +40,12 @@ export function MTGCardToolbar() {
 
     setSaving(true);
     try {
-      const result = await saveToDatabase(card);
-
-      if (result.success) {
-        setNotification({
-          open: true,
-          message: 'Card saved successfully!',
-          severity: 'success',
-        });
-      } else {
-        setNotification({
-          open: true,
-          message: result.error || 'Failed to save card',
-          severity: 'error',
-        });
-      }
+      // TODO: Implement save functionality
+      setNotification({
+        open: true,
+        message: 'Save functionality not implemented yet',
+        severity: 'info',
+      });
     } catch (error) {
       setNotification({
         open: true,

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import {
   Box,
   Breadcrumbs,
@@ -163,13 +164,13 @@ export default function SpellMarketplacePage() {
 
         const normalizedListings: SpellListing[] = Array.isArray(data?.data)
           ? data.data.map((listing: any) => ({
-              ...normalizeCardData(listing),
-              id: listing.id,
-              priceCredits: listing.priceCredits,
-              sellerUserId: listing.sellerUserId,
-              sellerUsername: listing.sellerUsername,
-              createdAt: listing.createdAt,
-            }))
+            ...normalizeCardData(listing),
+            id: listing.id,
+            priceCredits: listing.priceCredits,
+            sellerUserId: listing.sellerUserId,
+            sellerUsername: listing.sellerUsername,
+            createdAt: listing.createdAt,
+          }))
           : [];
 
         setTotal(Number(data?.total || 0));
@@ -476,8 +477,8 @@ export default function SpellMarketplacePage() {
                         viewMode === 'grid' && !isMobile
                           ? 'translateY(-8px)'
                           : isMobile
-                          ? 'translateY(-4px)'
-                          : 'none',
+                            ? 'translateY(-4px)'
+                            : 'none',
                       boxShadow: theme => theme.shadows[12],
                       '& .cardImage': {
                         transform: isMobile ? 'scale(1.02)' : 'scale(1.05)',

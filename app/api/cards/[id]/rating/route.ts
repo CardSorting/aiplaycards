@@ -1,4 +1,3 @@
-import { auth } from '../../../../../auth';
 import { db } from '../../../../../src/db';
 import { cardRatings } from '../../../../../src/db/schema/card-social';
 import { and, eq, sql } from 'drizzle-orm';
@@ -9,11 +8,11 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const session = await auth();
-    const currentUser = session?.user;
-    if (!currentUser)
+    const body = await request.json().catch(() => ({}));
+    const userId = body?.userId;
+    if (!userId)
       return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
+        { success: false, error: 'User ID required' },
         { status: 401 },
       );
 
@@ -25,7 +24,6 @@ export async function POST(
         { status: 400 },
       );
 
-    const body = await request.json().catch(() => ({}));
     const ratingValue = parseInt(body.rating, 10);
 
     if (ratingValue < 1 || ratingValue > 5) {
@@ -42,7 +40,7 @@ export async function POST(
       .where(
         and(
           eq(cardRatings.cardId, cardId),
-          eq(cardRatings.userId, currentUser.id!),
+          eq(cardRatings.userId, userId),
         ),
       )
       .limit(1);
@@ -58,14 +56,14 @@ export async function POST(
         .where(
           and(
             eq(cardRatings.cardId, cardId),
-            eq(cardRatings.userId, currentUser.id!),
+            eq(cardRatings.userId, userId),
           ),
         );
     } else {
       // Insert new rating
       await db.insert(cardRatings).values({
         cardId,
-        userId: currentUser.id!,
+        userId,
         rating: ratingValue,
       });
     }
@@ -112,8 +110,8 @@ export async function GET(
         { status: 400 },
       );
 
-    const session = await auth();
-    const currentUser = session?.user;
+    const url = new URL(request.url);
+    const userId = url.searchParams.get('userId');
 
     // Get average rating and count
     const ratingStats = await db
@@ -130,14 +128,14 @@ export async function GET(
 
     // Check if current user has rated this card
     let isRated = false;
-    if (currentUser) {
+    if (userId) {
       const userRating = await db
         .select()
         .from(cardRatings)
         .where(
           and(
             eq(cardRatings.cardId, cardId),
-            eq(cardRatings.userId, currentUser.id!),
+            eq(cardRatings.userId, userId),
           ),
         )
         .limit(1);

@@ -1,8 +1,6 @@
-'use client';
-
 import { Typography, styled } from '@mui/material';
 import Routes from '@routes';
-import NextLink from 'next/link';
+import { Link as RouterLink } from 'react-router-dom';
 import { FC } from 'react';
 import DesktopHeader from './DesktopHeader';
 import MobileHeader from './MobileHeader';
@@ -29,12 +27,11 @@ const HeaderContainer = styled('header')(({ theme }) => ({
   },
 }));
 
-const LogoLink = styled(NextLink)(({ theme }: { theme: any }) => ({
+const LogoLink = styled(RouterLink)(({ theme }: { theme: any }) => ({
   color: 'white',
   textDecoration: 'none',
-  transition: `all 0.2s ${
-    theme.custom?.apple?.motion?.smooth || 'cubic-bezier(0.4, 0, 0.2, 1)'
-  }`,
+  transition: `all 0.2s ${theme.custom?.apple?.motion?.smooth || 'cubic-bezier(0.4, 0, 0.2, 1)'
+    }`,
   '&:hover': {
     textDecoration: 'none',
     transform: 'scale(1.02)',
@@ -76,7 +73,7 @@ const MobileOnly = styled('div')(({ theme }) => ({
 const Header: FC = () => {
   return (
     <HeaderContainer>
-      <LogoLink href={Routes.Home}>
+      <LogoLink to={Routes.Home}>
         <LogoText variant="h1" color="inherit" noWrap>
           PlayMore TCG
         </LogoText>
@@ -92,3 +89,4 @@ const Header: FC = () => {
 };
 
 export default Header;
+

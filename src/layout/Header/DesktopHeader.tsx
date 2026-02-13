@@ -1,8 +1,6 @@
-'use client';
-
 import { Box, Button, Stack, Typography } from '@mui/material';
 import Routes from '@routes';
-import NextLink from 'next/link';
+import { Link as RouterLink } from 'react-router-dom';
 import { FC } from 'react';
 import { NavItems } from './styles';
 
@@ -11,8 +9,8 @@ const DesktopHeader: FC = () => {
     <>
       <NavItems>
         <Button
-          component={NextLink}
-          href={Routes.Create}
+          component={RouterLink}
+          to={Routes.Create}
           variant="contained"
           color="primary"
           sx={{
@@ -29,8 +27,8 @@ const DesktopHeader: FC = () => {
         <Stack direction="row" spacing={0} sx={{ ml: 1 }}>
           {/* Other Navigation */}
           <Button
-            component={NextLink}
-            href={'/marketplace'}
+            component={RouterLink}
+            to={'/marketplace'}
             color="inherit"
             size="small"
             sx={{
@@ -42,8 +40,8 @@ const DesktopHeader: FC = () => {
             Market
           </Button>
           <Button
-            component={NextLink}
-            href={Routes.Feed}
+            component={RouterLink}
+            to={Routes.Feed}
             color="inherit"
             size="small"
             sx={{
@@ -91,8 +89,8 @@ const DesktopHeader: FC = () => {
             </Typography>
             <Box sx={{ display: 'flex', gap: 1 }}>
               <Button
-                component={NextLink}
-                href="/community"
+                component={RouterLink}
+                to="/community"
                 color="inherit"
                 size="small"
                 sx={{
@@ -136,8 +134,8 @@ const DesktopHeader: FC = () => {
                 Community
               </Button>
               <Button
-                component={NextLink}
-                href="/gallery"
+                component={RouterLink}
+                to="/gallery"
                 color="inherit"
                 size="small"
                 sx={{
@@ -181,8 +179,8 @@ const DesktopHeader: FC = () => {
                 Monster
               </Button>
               <Button
-                component={NextLink}
-                href="/duel-gallery"
+                component={RouterLink}
+                to="/duel-gallery"
                 color="inherit"
                 size="small"
                 sx={{
@@ -226,8 +224,8 @@ const DesktopHeader: FC = () => {
                 Duel
               </Button>
               <Button
-                component={NextLink}
-                href="/spell-gallery"
+                component={RouterLink}
+                to="/spell-gallery"
                 color="inherit"
                 size="small"
                 sx={{
@@ -271,8 +269,8 @@ const DesktopHeader: FC = () => {
                 Spell
               </Button>
               <Button
-                component={NextLink}
-                href={'/special-collection'}
+                component={RouterLink}
+                to={'/special-collection'}
                 color="inherit"
                 size="small"
                 sx={{
@@ -316,8 +314,8 @@ const DesktopHeader: FC = () => {
                 PlayMore
               </Button>
               <Button
-                component={NextLink}
-                href={'/nano'}
+                component={RouterLink}
+                to={'/nano'}
                 color="inherit"
                 size="small"
                 sx={{
@@ -369,3 +367,4 @@ const DesktopHeader: FC = () => {
 };
 
 export default DesktopHeader;
+

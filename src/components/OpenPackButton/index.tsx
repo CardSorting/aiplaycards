@@ -1,53 +1,27 @@
-'use client';
-
 import { Button, ButtonProps } from '@mui/material';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import Routes from '@routes';
-import { useMemo } from 'react';
+import { useSession } from '@hooks/useSession';
 
-type Props = Omit<ButtonProps<typeof Link>, 'href'> & {
+type Props = Omit<ButtonProps, 'component' | 'to'> & {
   label: string;
 };
 
-// Component that uses Stack Auth when the provider is available
-function AuthenticatedOpenPackButton({ label, ...props }: Props) {
+export default function OpenPackButton({ label, ...props }: Props) {
   const { data: session } = useSession();
   const user = session?.user;
+
+  // For now, always behave as "authenticated" for the demo/migration
+  // In a real app, this would check session status
+  const href = user ? (typeof Routes.BoosterPacks === 'string' ? Routes.BoosterPacks : '/') : '/signin';
+
   return (
     <Button
-      component={Link}
-      href={user ? Routes.BoosterPacks : Routes.Login}
+      component={Link as any}
+      to={href}
       {...props}
     >
       {label}
     </Button>
-  );
-}
-
-// Component without Stack Auth
-function SimpleOpenPackButton({ label, ...props }: Props) {
-  return (
-    <Button component={Link} href={Routes.Login} {...props}>
-      {label}
-    </Button>
-  );
-}
-
-export default function OpenPackButton({ label, ...props }: Props) {
-  const isStackConfigured = useMemo(
-    () =>
-      Boolean(
-        typeof window !== 'undefined' &&
-          (window as { __STACK_CLIENT_APP__?: unknown }).__STACK_CLIENT_APP__ &&
-          process.env.NEXT_PUBLIC_STACK_PROJECT_ID &&
-          process.env.NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY,
-      ),
-    [],
-  );
-
-  return isStackConfigured ? (
-    <AuthenticatedOpenPackButton label={label} {...props} />
-  ) : (
-    <SimpleOpenPackButton label={label} {...props} />
   );
 }

@@ -1,19 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '../../../../auth';
 import { db } from '@db';
 import { cards, customBoosterPackCards, customBoosterPacks } from '@db/schema';
 import { and, eq, inArray } from 'drizzle-orm';
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await auth();
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        { error: 'Authentication required' },
-        { status: 401 },
-      );
-    }
-
     const body = await request.json();
     const {
       name,
@@ -21,12 +12,20 @@ export async function POST(request: NextRequest) {
       packSize = 5,
       totalPacks = 1,
       cards: cardData,
+      creatorUserId,
     } = body;
 
     // Validation
     if (!name || typeof name !== 'string' || name.trim().length === 0) {
       return NextResponse.json(
         { error: 'Pack name is required' },
+        { status: 400 },
+      );
+    }
+
+    if (!creatorUserId) {
+      return NextResponse.json(
+        { error: 'Creator user ID is required' },
         { status: 400 },
       );
     }
@@ -53,13 +52,13 @@ export async function POST(request: NextRequest) {
       .select({ id: cards.id })
       .from(cards)
       .where(
-        and(eq(cards.userId, session.user.id), inArray(cards.id, cardIds)),
+        and(eq(cards.userId, creatorUserId), inArray(cards.id, cardIds)),
       );
 
     if (userCards.length !== cardIds.length) {
       return NextResponse.json(
         {
-          error: 'One or more cards do not belong to you',
+          error: 'One or more cards do not belong to the user',
         },
         { status: 403 },
       );
@@ -69,7 +68,7 @@ export async function POST(request: NextRequest) {
     const [pack] = await db
       .insert(customBoosterPacks)
       .values({
-        creatorUserId: session.user.id,
+        creatorUserId,
         name: name.trim(),
         description: description?.trim() || null,
         packSize,
@@ -107,7 +106,6 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await auth();
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId');
     const limit = Math.min(parseInt(searchParams.get('limit') || '20'), 50);

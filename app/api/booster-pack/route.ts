@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '../../../src/db';
 import { boosterJobs } from '../../../src/db/schema/booster-jobs';
-import { eq, gt, sql } from 'drizzle-orm';
-import { auth } from '../../../auth';
-import { users } from '../../../src/db/schema/users';
+import { gt, sql } from 'drizzle-orm';
 import { dbUtils } from '../../../src/db/utils';
 
 const CREDIT_COST = 25; // credits per booster open
@@ -14,8 +12,6 @@ export const fetchCache = 'force-no-store';
 export async function GET(request: NextRequest) {
   try {
     await dbUtils.ensurePerformanceIndexes();
-    const session = await auth();
-    const currentUser = session?.user;
     // Drop system removed: always report active status
 
     // Social proof metrics: recent opens counts
@@ -34,17 +30,6 @@ export async function GET(request: NextRequest) {
     const opensLastHour = lastHourRows?.[0]?.count ?? 0;
     const opensLast24h = lastDayRows?.[0]?.count ?? 0;
 
-    // Fetch credits for current user if available
-    let credits: number | undefined = undefined;
-    if (currentUser) {
-      const row = await db
-        .select({ credits: users.credits })
-        .from(users)
-        .where(eq(users.userId, currentUser.id!))
-        .limit(1);
-      credits = row[0]?.credits ?? 0;
-    }
-
     return NextResponse.json(
       {
         status: 'active',
@@ -52,17 +37,14 @@ export async function GET(request: NextRequest) {
         name: 'Booster',
         opensLastHour,
         opensLast24h,
-        credits,
+        credits: undefined,
         creditCost: CREDIT_COST,
         startsAt: null,
       },
       {
         headers: {
-          // Allow short-lived caching for anonymous; keep private for authed because of credits
-          'Cache-Control': currentUser
-            ? 'private, max-age=15, stale-while-revalidate=60'
-            : 'public, max-age=60, s-maxage=120, stale-while-revalidate=300',
-          Vary: currentUser ? 'Cookie' : 'Accept-Encoding',
+          'Cache-Control': 'public, max-age=60, s-maxage=120, stale-while-revalidate=300',
+          Vary: 'Accept-Encoding',
         },
       },
     );

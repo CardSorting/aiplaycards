@@ -1,4 +1,5 @@
 'use client';
+import { useSession } from 'next-auth/react';
 import React, {
   useCallback,
   useEffect,
@@ -45,8 +46,6 @@ import {
 } from '@components/CardDisplayWrapper';
 import { SEO } from '@layout';
 import Routes from '@routes';
-------- REPLACE
-
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
