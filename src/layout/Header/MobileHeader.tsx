@@ -157,13 +157,7 @@ const AuthenticatedMobileHeader: FC = () => {
         primary: false,
         category: 'main',
       },
-      {
-        icon: <GroupWorkIcon />,
-        text: 'Community Pool',
-        href: '/community',
-        primary: false,
-        category: 'collections',
-      },
+
       {
         icon: <CollectionsIcon />,
         text: 'Monster Cards',
@@ -206,13 +200,7 @@ const AuthenticatedMobileHeader: FC = () => {
         primary: false,
         category: 'other',
       },
-      {
-        icon: <PeopleIcon />,
-        text: 'Social',
-        href: Routes.Feed,
-        primary: false,
-        category: 'other',
-      },
+
       {
         icon: <AutoAwesomeIcon />,
         text: 'Create Card',

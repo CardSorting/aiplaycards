@@ -31,7 +31,7 @@ const Routes = {
   Booster: '/booster',
   BoosterPacks: '/',
   Gallery: '/gallery',
-  Feed: '/feed',
+  Community: '/community',
   Profile: (username: string) => `/u/${urlFriendlyUsername(username)}`,
   SpecialPacks: '/special-packs',
   SpecialPackCategory: (categoryName: string) =>

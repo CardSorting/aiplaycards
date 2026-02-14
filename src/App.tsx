@@ -6,11 +6,9 @@ import RootLayout from './layout/RootLayout';
 const Home = lazy(() => import('./pages/Home'));
 const BoosterPack = lazy(() => import('./pages/BoosterPack'));
 const Gallery = lazy(() => import('./pages/Gallery'));
-const SocialFeed = lazy(() => import('./pages/SocialFeed'));
 const Profile = lazy(() => import('./pages/Profile'));
 const Creator = lazy(() => import('./pages/Creator'));
 const Marketplace = lazy(() => import('./pages/Marketplace'));
-const Community = lazy(() => import('./pages/Community'));
 const SpecialPacks = lazy(() => import('./pages/SpecialPacks'));
 const Notifications = lazy(() => import('./pages/Notifications'));
 const Credits = lazy(() => import('./pages/Credits'));
@@ -19,6 +17,7 @@ const ListingDetail = lazy(() => import('./pages/ListingDetail'));
 const ManageListings = lazy(() => import('./pages/ManageListings'));
 const CreateListing = lazy(() => import('./pages/CreateListing'));
 const CreatePack = lazy(() => import('./pages/CreatePack'));
+const Community = lazy(() => import('./pages/Community'));
 
 
 
@@ -58,12 +57,12 @@ const App: FC = () => {
                         <Gallery />
                     </Suspense>
                 } />
-
-                <Route path="feed" element={
+                <Route path="community" element={
                     <Suspense fallback={<div>Loading...</div>}>
-                        <SocialFeed />
+                        <Community />
                     </Suspense>
                 } />
+
 
                 <Route path="u/:username" element={
                     <Suspense fallback={<div>Loading...</div>}>
@@ -82,11 +81,6 @@ const App: FC = () => {
                     </Suspense>
                 } />
                 <Route path="marketplace/:category" element={<Placeholder name="Marketplace Category" />} />
-                <Route path="community" element={
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <Community />
-                    </Suspense>
-                } />
                 <Route path="notifications" element={
                     <Suspense fallback={<div>Loading...</div>}>
                         <Notifications />

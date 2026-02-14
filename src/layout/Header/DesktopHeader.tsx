@@ -41,7 +41,7 @@ const DesktopHeader: FC = () => {
           </Button>
           <Button
             component={RouterLink}
-            to={Routes.Feed}
+            to={Routes.Community}
             color="inherit"
             size="small"
             sx={{
@@ -50,7 +50,7 @@ const DesktopHeader: FC = () => {
               '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' },
             }}
           >
-            Social
+            Community
           </Button>
 
           {/* Collections Group */}
@@ -88,51 +88,6 @@ const DesktopHeader: FC = () => {
               Collections
             </Typography>
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <Button
-                component={RouterLink}
-                to="/community"
-                color="inherit"
-                size="small"
-                sx={{
-                  textTransform: 'none',
-                  px: 2,
-                  py: 0.75,
-                  borderRadius: 2,
-                  minWidth: 'auto',
-                  fontSize: '0.875rem',
-                  fontWeight: 600,
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  backgroundColor: 'rgba(16, 185, 129, 0.15)',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-                  '&::before': {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: '-100%',
-                    width: '100%',
-                    height: '100%',
-                    background:
-                      'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)',
-                    transition: 'left 0.5s',
-                  },
-                  '&:hover': {
-                    backgroundColor: 'rgba(16, 185, 129, 0.3)',
-                    borderColor: 'rgba(16, 185, 129, 0.6)',
-                    transform: 'translateY(-2px) scale(1.02)',
-                    boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
-                    '&::before': {
-                      left: '100%',
-                    },
-                  },
-                  '&:active': {
-                    transform: 'translateY(-1px) scale(1.01)',
-                  },
-                }}
-              >
-                Community
-              </Button>
               <Button
                 component={RouterLink}
                 to="/gallery"
