@@ -1,7 +1,6 @@
 # *
 User-agent: *
 Allow: /
-Disallow: /admin/
 Disallow: /api/
 Disallow: /embed/
 Disallow: /test-auth
@@ -11,7 +10,6 @@ Disallow: /static/
 # Googlebot
 User-agent: Googlebot
 Allow: /
-Disallow: /admin/
 Disallow: /api/
 Disallow: /embed/
 Disallow: /test-auth

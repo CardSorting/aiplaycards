@@ -18,10 +18,3 @@ export * from './special-collection';
 export * from './yugioh-cards';
 export * from './mtg-cards';
 export * from './relations';
-
-// Advanced database features for industrial-grade performance and compliance
-export * from './advanced-audit';
-export * from './advanced-performance';
-
-// Enhanced Community Pack System - Industry-Grade Database Design
-export * from './enhanced-community-packs';

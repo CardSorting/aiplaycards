@@ -461,7 +461,7 @@ export async function POST(request: NextRequest) {
         {
           data: row,
           message:
-            'Your ATC card listing has been submitted for admin approval and will appear on the marketplace once approved.',
+            'Your ATC card listing has been submitted for approval and will appear on the marketplace once approved.',
           moderationStatus: 'pending',
         },
         { status: 201 },

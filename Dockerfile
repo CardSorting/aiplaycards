@@ -65,14 +65,10 @@ COPY docker-entrypoint.js docker-entrypoint.js
 
 # Accept build args for Next.js public env vars
 ARG NEXT_PUBLIC_PAYPAL_CLIENT_ID
-ARG NEXT_PUBLIC_ADMIN_EMAIL
-ARG NEXT_PUBLIC_ADMIN_USER_ID
 ARG NEXTAUTH_URL
 
 # Set env vars for build
 ENV NEXT_PUBLIC_PAYPAL_CLIENT_ID=$NEXT_PUBLIC_PAYPAL_CLIENT_ID
-ENV NEXT_PUBLIC_ADMIN_EMAIL=$NEXT_PUBLIC_ADMIN_EMAIL
-ENV NEXT_PUBLIC_ADMIN_USER_ID=$NEXT_PUBLIC_ADMIN_USER_ID
 ENV NEXTAUTH_URL=$NEXTAUTH_URL
 
 # Skip postbuild scripts during Docker build (they'll run at startup if needed)

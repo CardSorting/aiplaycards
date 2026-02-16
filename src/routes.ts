@@ -33,9 +33,6 @@ const Routes = {
   Gallery: '/gallery',
   Community: '/community',
   Profile: (username: string) => `/u/${urlFriendlyUsername(username)}`,
-  SpecialPacks: '/special-packs',
-  SpecialPackCategory: (categoryName: string) =>
-    `/special-packs/${urlFriendlySlug(categoryName)}`,
   Notifications: '/notifications',
   // NextAuth routes
   Login: '/signin',

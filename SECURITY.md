@@ -65,12 +65,6 @@ sequenceDiagram
   - `secure: true` (HTTPS only in production)
   - `__Secure-` prefix in production
 
-### Admin Access
-
-- **Multi-factor Authentication**: Required for admin actions
-- **Privilege Escalation Detection**: Monitored and logged
-- **Session Restrictions**: Shorter duration, IP binding
-
 ## Data Protection
 
 ### Sensitive Data Classification
@@ -126,7 +120,6 @@ Tiered rate limiting based on operation sensitivity:
 | Financial Operations | 10/min     | 10 minutes     |
 | Image Upload         | 20/min     | 5 minutes      |
 | General API          | 100/min    | 5 minutes      |
-| Admin Operations     | 50/min     | 15 minutes     |
 
 ### SQL Injection Prevention
 
@@ -174,19 +167,9 @@ The application logs the following security events:
 | Event Type            | Severity | Action              |
 | --------------------- | -------- | ------------------- |
 | Failed Login Attempts | Medium   | Log + Monitor       |
-| Admin Access          | Medium   | Log + Alert         |
 | Rate Limit Exceeded   | High     | Log + Block         |
 | Suspicious Activity   | High     | Log + Alert         |
 | SQL Injection Attempt | Critical | Log + Block + Alert |
-
-### Monitoring Dashboard
-
-Access security metrics at `/api/security/stats` (admin only):
-
-- Active security events
-- Rate limiting statistics
-- Failed authentication attempts
-- Suspicious IP addresses
 
 ### Incident Response Plan
 
@@ -245,22 +228,6 @@ return NextResponse.json(
   { status: 400 },
 );
 ```
-
-### For Administrators
-
-#### Environment Security
-
-1. **Regular Secret Rotation**: Change secrets quarterly
-2. **Access Control**: Limit admin access to necessary personnel
-3. **Backup Security**: Encrypt all backups
-4. **Log Review**: Weekly security log analysis
-
-#### Database Security
-
-1. **Connection Security**: Use SSL/TLS for database connections
-2. **User Privileges**: Separate read/write database users
-3. **Query Monitoring**: Log slow or suspicious queries
-4. **Regular Audits**: Monthly permission reviews
 
 ## Vulnerability Reporting
 
@@ -334,5 +301,3 @@ For security-related questions or to report vulnerabilities:
 
 **Document Version**: 1.0
 **Last Updated**: January 2025
-**Next Review**: April 2025
-**Approved By**: Security Team

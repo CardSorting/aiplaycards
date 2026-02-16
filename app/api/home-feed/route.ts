@@ -61,7 +61,7 @@ function normalizeCardItems(payload: any): FeedItem[] {
       },
       ts: createdAt,
       href,
-      allowlisted: true, // TODO: wire allowlist once admin UI is in place
+      allowlisted: true,
       backgroundImage: getCreatorBackgroundImage(handle),
     };
   });

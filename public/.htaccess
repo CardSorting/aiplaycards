@@ -184,7 +184,6 @@ RewriteCond %{HTTP_USER_AGENT} ^.*(winhttp|HTTrack|clshttp|archiver|loader|email
 RewriteRule .* - [F,L]
 
 # Block access to admin areas
-RewriteRule ^admin/?$ - [F,L]
 RewriteRule ^api/?$ - [F,L]
 RewriteRule ^_next/?$ - [F,L]
 RewriteRule ^static/?$ - [F,L]
