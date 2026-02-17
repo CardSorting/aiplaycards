@@ -14,6 +14,13 @@ export default defineConfig({
             '@utils': path.resolve(__dirname, './src/utils'),
             '@layout': path.resolve(__dirname, './src/layout'),
             '@cardEditor': path.resolve(__dirname, './src/features/cardEditor'),
+            '@css': path.resolve(__dirname, './src/css/index.ts'),
+            '@routes': path.resolve(__dirname, './src/routes.ts'),
+            '@interfaces': path.resolve(__dirname, './src/interfaces'),
+            '@services': path.resolve(__dirname, './src/services'),
+            '@db': path.resolve(__dirname, './src/db'),
+            '@lib': path.resolve(__dirname, './src/lib'),
+            '@assets': path.resolve(__dirname, './public/assets'),
         },
     },
     server: {

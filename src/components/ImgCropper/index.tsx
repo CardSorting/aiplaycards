@@ -6,7 +6,7 @@ import {
   cardImgWidth,
   cropperHeight,
   cropperWidth,
-} from 'src/constants';
+} from '@/constants';
 import { Overlay, Wrapper } from './styles';
 import { ImgCropperProps } from './types';
 

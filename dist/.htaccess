@@ -1,0 +1,193 @@
+# PlayMore TCG - Apache Configuration
+# Comprehensive .htaccess for SEO, security, and performance
+
+# Enable URL rewriting
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Remove trailing slashes
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+# Remove .html extensions
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+# Canonical redirects
+RewriteCond %{HTTP_HOST} !^www\.playmoretcg\.com$ [NC]
+RewriteRule ^(.*)$ https://www.playmoretcg.com/$1 [L,R=301]
+
+# Security Headers
+<IfModule mod_headers.c>
+    # Content Security Policy
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://gc.zgo.at; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://gc.zgo.at; frame-src 'self' https://www.paypal.com; object-src 'none'; base-uri 'self'; form-action 'self' https://www.paypal.com;"
+    
+    # X-Frame-Options
+    Header always set X-Frame-Options "SAMEORIGIN"
+    
+    # X-Content-Type-Options
+    Header always set X-Content-Type-Options "nosniff"
+    
+    # X-XSS-Protection
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Referrer Policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Permissions Policy
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    
+    # Strict Transport Security
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    
+    # Cache Control for static assets
+    <FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    # Cache Control for HTML
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "public, max-age=3600"
+    </FilesMatch>
+    
+    # Cache Control for API responses
+    <FilesMatch "\.(json|xml)$">
+        Header set Cache-Control "public, max-age=300"
+    </FilesMatch>
+</IfModule>
+
+# Gzip Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# Browser Caching
+<IfModule mod_expires.c>
+    ExpiresActive on
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/ico "access plus 1 year"
+    ExpiresByType image/icon "access plus 1 year"
+    ExpiresByType text/ico "access plus 1 year"
+    ExpiresByType image/x-ico "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/html "access plus 1 hour"
+    ExpiresByType application/xhtml+xml "access plus 1 hour"
+    ExpiresByType application/json "access plus 5 minutes"
+    ExpiresByType application/xml "access plus 5 minutes"
+    ExpiresByType text/xml "access plus 5 minutes"
+</IfModule>
+
+# Custom Error Pages
+ErrorDocument 404 /404
+ErrorDocument 500 /500
+
+# Block access to sensitive files
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|conf)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Block access to backup files
+<FilesMatch "\.(bak|backup|old|orig|save|swp|tmp)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Block access to version control files
+<FilesMatch "\.(git|svn|hg|bzr|cvs)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Block access to package files
+<FilesMatch "\.(json|lock|md|txt|yml|yaml)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Allow access to specific files
+<Files "robots.txt">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+<Files "sitemap.xml">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+<Files "humans.txt">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+<Files "ads.txt">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+<Files "app-ads.txt">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+# SEO-friendly redirects
+RewriteRule ^home/?$ / [R=301,L]
+RewriteRule ^index\.html$ / [R=301,L]
+RewriteRule ^index\.php$ / [R=301,L]
+
+# Remove query strings from static resources
+<IfModule mod_rewrite.c>
+    RewriteCond %{QUERY_STRING} ^$
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteCond %{REQUEST_FILENAME} \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ [NC]
+    RewriteRule ^(.+)\.(.+)\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ $1.$3 [L]
+</IfModule>
+
+# Prevent hotlinking
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?playmoretcg\.com [NC]
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?google\.com [NC]
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?bing\.com [NC]
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?yahoo\.com [NC]
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?facebook\.com [NC]
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?twitter\.com [NC]
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?linkedin\.com [NC]
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?pinterest\.com [NC]
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?instagram\.com [NC]
+RewriteRule \.(jpg|jpeg|png|gif|svg|ico|css|js)$ - [F,L]
+
+# Block bad bots
+RewriteCond %{HTTP_USER_AGENT} ^$ [OR]
+RewriteCond %{HTTP_USER_AGENT} ^(java|curl|wget).* [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^.*(libwww-perl|curl|wget|python|nikto|scan).* [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^.*(winhttp|HTTrack|clshttp|archiver|loader|email|harvest|extract|grab|miner).* [NC]
+RewriteRule .* - [F,L]
+
+# Block access to admin areas
+RewriteRule ^api/?$ - [F,L]
+RewriteRule ^_next/?$ - [F,L]
+RewriteRule ^static/?$ - [F,L]
+
+# Allow access to public assets
+RewriteRule ^assets/?$ - [L]
+RewriteRule ^favicon/?$ - [L]

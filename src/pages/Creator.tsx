@@ -4,7 +4,7 @@ import CardDisplay from '@cardEditor/cardStyles/components/CardDisplay';
 import { SEO } from '@layout';
 import CardDownloader from '@cardEditor/cardOptions/components/atoms/CardDownloader';
 import { siteDescription } from '@/constants';
-import styled from '@css';
+import { styled } from '@css';
 
 export const Wrapper = styled('div')`
   display: flex;
@@ -68,16 +68,16 @@ export const CardWrapper = styled('div')`
 `;
 
 const Creator: FC = () => (
-    <>
-        <SEO title="Creator" description={siteDescription} />
-        <Wrapper>
-            <CardOptionsForm />
-            <CardWrapper>
-                <CardDisplay disableParallax />
-                <CardDownloader />
-            </CardWrapper>
-        </Wrapper>
-    </>
+  <>
+    <SEO title="Creator" description={siteDescription} />
+    <Wrapper>
+      <CardOptionsForm />
+      <CardWrapper>
+        <CardDisplay disableParallax />
+        <CardDownloader />
+      </CardWrapper>
+    </Wrapper>
+  </>
 );
 
 export default Creator;

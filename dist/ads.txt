@@ -1,0 +1,13 @@
+# PlayMore TCG - Authorized Digital Sellers
+# This file follows the IAB ads.txt standard
+# For more information: https://iabtechlab.com/ads-txt/
+
+# Format: domain, publisher_id, relationship, certification_authority_id
+# Currently no advertising partners - file maintained for future use
+
+# Example format (commented out):
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+# facebook.com, 123456789, DIRECT, 9a4c75c4c4c4c4c4
+
+# Last updated: 2024-12-19
+# Contact: ads@playmoretcg.com

@@ -1,0 +1,1 @@
+import{j as e,e as r,R as u,h as a}from"./index-EsxPKsM0.js";import{u as i}from"./useSession-D8Hc1CSh.js";function f({label:s,...o}){const{data:t}=i(),n=t?.user?u.BoosterPacks:"/signin";return e.jsx(r,{component:a,to:n,...o,children:s})}export{f as O};

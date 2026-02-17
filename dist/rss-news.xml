@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:image="http://purl.org/rss/1.0/modules/image/">
+  <channel>
+    <title>PlayMore TCG - News and Updates</title>
+    <link>https://playmoretcg.com/news</link>
+    <description>Latest news, updates, and announcements from PlayMore TCG</description>
+    <language>en-US</language>
+    <lastBuildDate>Thu, 12 Feb 2026 15:00:38 GMT</lastBuildDate>
+    <atom:link href="https://playmoretcg.com/rss-news.xml" rel="self" type="application/rss+xml" />
+    <image>
+      <url>https://playmoretcg.com/assets/images/logo.png</url>
+      <title>PlayMore TCG - News and Updates</title>
+      <link>https://playmoretcg.com/news</link>
+    </image>
+    <item>
+      <title>New AI Card Generator Features Released</title>
+      <link>https://playmoretcg.com/news/ai-features</link>
+      <guid>https://playmoretcg.com/news/ai-features</guid>
+      <pubDate>Thu, 12 Feb 2026 15:00:38 GMT</pubDate>
+      <description><![CDATA[We've released exciting new AI-powered features for creating even more amazing Pokemon cards!]]></description>
+      
+      <dc:creator>PlayMore TCG Team</dc:creator>
+      <category>Updates</category>
+    </item>
+    <item>
+      <title>Community Spotlight: Best Cards of the Month</title>
+      <link>https://playmoretcg.com/news/community-spotlight</link>
+      <guid>https://playmoretcg.com/news/community-spotlight</guid>
+      <pubDate>Mon, 09 Feb 2026 15:00:38 GMT</pubDate>
+      <description><![CDATA[Check out the most amazing Pokemon cards created by our community this month!]]></description>
+      
+      <dc:creator>PlayMore TCG Team</dc:creator>
+      <category>Community</category>
+    </item>
+    <item>
+      <title>New Booster Pack Series Available</title>
+      <link>https://playmoretcg.com/news/new-booster-series</link>
+      <guid>https://playmoretcg.com/news/new-booster-series</guid>
+      <pubDate>Thu, 05 Feb 2026 15:00:38 GMT</pubDate>
+      <description><![CDATA[Introducing our latest booster pack series with exclusive Pokemon cards!]]></description>
+      
+      <dc:creator>PlayMore TCG Team</dc:creator>
+      <category>Products</category>
+    </item>
+  </channel>
+</rss>

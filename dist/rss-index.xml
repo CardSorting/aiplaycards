@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rssindex>
+  <title>PlayMore TCG - RSS Feeds</title>
+  <description>Available RSS feeds for PlayMore TCG content</description>
+  <feeds>
+    <feed>
+      <title>Latest Cards</title>
+      <description>Latest custom Pokemon cards created by the community</description>
+      <link>https://playmoretcg.com/rss-latest-cards.xml</link>
+    </feed>
+    <feed>
+      <title>Marketplace Listings</title>
+      <description>Latest Pokemon cards available for purchase</description>
+      <link>https://playmoretcg.com/rss-marketplace.xml</link>
+    </feed>
+    <feed>
+      <title>News and Updates</title>
+      <description>Latest news, updates, and announcements</description>
+      <link>https://playmoretcg.com/rss-news.xml</link>
+    </feed>
+  </feeds>
+</rssindex>

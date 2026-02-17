@@ -1,5 +1,5 @@
 import { styled } from '@css';
-import { cropperHeight } from 'src/constants';
+import { cropperHeight } from '@/constants';
 
 export const Wrapper = styled('div')`
   position: relative;
@@ -14,7 +14,7 @@ export const Wrapper = styled('div')`
   }
 `;
 
-export const Overlay = styled('div')<{ $zIndex: number }>`
+export const Overlay = styled('div') <{ $zIndex: number }>`
   position: absolute;
   top: 0;
   left: 0;

@@ -1,0 +1,1 @@
+const e=[{slug:"eldersigil",name:"Eldersigil",description:"Timeworn seals and arcane filigree",gradient:"linear-gradient(135deg, #1976d2, #9c27b0)",emoji:"🎴"}];function r(i){return i&&e.find(n=>n.slug===i)||e[0]}export{e as P,r as g};

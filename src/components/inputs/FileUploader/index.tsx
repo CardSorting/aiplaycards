@@ -15,7 +15,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { maxFileSize } from 'src/constants';
+import { maxFileSize } from '@/constants';
 import Label from '../Label';
 import { ButtonLabel } from './styles';
 import { FileUploaderProps } from './types';
